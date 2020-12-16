@@ -1,0 +1,90 @@
+﻿@using Catalog.Models;
+@using Microsoft.AspNet.Identity;
+@model Catalog.Models.ManageUserViewModel
+@{
+    ViewBag.Title = "Administrar cuenta";
+    var ListaDatos =  ViewBag.ListaDatosCliente;
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@Html.AntiForgeryToken()
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <div class="row">
+        <div class="col-md-12">
+            @if (ViewBag.HasLocalPassword)
+            {
+                @Html.Partial("_ChangePasswordPartial")
+            }
+            else
+            {
+                @Html.Partial("_SetPasswordPartial")
+            }
+
+            <section id="externalLogins">
+                @Html.Action("RemoveAccountList")
+                @Html.Partial("_ExternalLoginsListPartial", new { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+
+<form action="@Url.Action("ActualizarDatos")" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="Cuenta" value="@User.Identity.GetUserName()" class="form-control" readonly />
+
+    @foreach (var p in ListaDatos)
+    {
+              
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nombre, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="text" name="Nombre" value="@p.Nombre" class="form-control" required />
+                <br />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.WhatsApp, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="text" name="WhatsApp" value="@p.WhatsApp" class="form-control" required />
+                <br />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Telefono, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="text" name="Telefono" value="@p.Telefono" class="form-control" required />
+                <br />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Direccion, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="text" name="Direccion" value="@p.Direccion" class="form-control" required />
+                <br />
+            </div>
+        </div>
+
+    }
+  
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <input type="submit" class="btn  btn-warning" value="Actualizar" />
+            </div>
+        </div>
+    </form>
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

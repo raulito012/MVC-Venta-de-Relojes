@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/fontawesome.min.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <div class="collapse navbar-collapse">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <img class="img-circle" src="https://images.jumpseller.com/store/relojes-y-lujo/store/logo/logoryi.jpg?0" width="30" height="30" alt="">
+        </a>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               <!-- @Html.ActionLink("Minimarket", "Index", "Home", null, new { @class = "navbar-brand" })-->
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "antony")
+                        {
+                            <li>@Html.ActionLink("Agregar", "AgregarProductos", "Reybin")</li>
+                            <li>@Html.ActionLink("Despacho", "Consultardespacho", "Reybin")</li>
+                         <li>@Html.ActionLink("Historial", "Consultarventas", "Reybin")</li>
+                         <li>@Html.ActionLink("Reporte Articulos", "imprimir_articulos", "Home")</li>
+                         <li>@Html.ActionLink("Reporte Clientes", "imprimir_usuarios", "Home")</li>
+                        <li>@Html.ActionLink("Grafica", "graficaventas", "reybin")</li>
+                        }
+                        
+                        <li>@Html.ActionLink("Productos", "ListaProductos", "Reybin")</li>
+                        <li>@Html.ActionLink("Carrito", "Carrito", "Reybin")</li>                      
+                        <li>@Html.ActionLink("Estado", "ConsultarEstado", "Reybin")</li>
+
+                    }
+
+                    else
+                    {
+                        <li>@Html.ActionLink("Acerca", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+
+                    }
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <br />
+          
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

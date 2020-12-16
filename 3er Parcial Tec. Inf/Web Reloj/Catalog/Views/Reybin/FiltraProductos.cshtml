@@ -1,0 +1,119 @@
+﻿@model Catalog.Models.ProductosModel
+@{
+    ViewBag.Title = "FiltraProductos";
+    var ListaProductosFiltrado = ViewBag.ListaProductosFiltrado;
+    
+}
+<br />
+<br />
+<h2>Lista De Productos</h2>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Eliminar el Producto ?");
+    }
+
+   
+</script>
+
+<style>
+ 
+    .caja {
+        position: absolute;
+        top: 9%;
+        left: 35%;
+        width: 200px;
+        background: #FFFFFF;
+        color: #333333;
+        font-weight: bold;
+        border: 2px solid #bdfae6;
+        border-radius: 4px;
+    }
+
+    .botonbuscar {
+        position: absolute;
+        top: 9%;
+        left: 53%;
+        width: 70px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 13px;
+        color: #333333;
+        padding-bottom: 5px;
+        background-color: #e2fdf4;
+        border-color: #F4FFFF;
+        border-width: 3px;
+        border-style: solid;
+        border-radius: 20px;
+    }
+</style>
+
+<form action="@Url.Action("FiltraProductos")" method="post">
+    <input type="text" name="buscar" placeholder="Nombre del producto" class="caja"  />
+    <input class="botonbuscar" type="submit" value="Buscar" />
+    <br />
+</form>
+
+<div class="table-responsive">
+    <table id="example" class="table table-hover">
+        <thead>
+
+
+            <tr class="d-flex">
+                <th class="col-md-1">ID</th>
+                <th class="col-md-2">Nombre</th>
+                <th class="col-md-1">Sexo</th>
+                <th class="col-md-1">Pecio</th>
+                <th class="col-md-1">ubicacion</th>
+                <th class="col-md-1"></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in ListaProductosFiltrado)
+            {
+
+                <tr class="d-flex">
+
+                    <td class="col-md-1">@p.id</td>
+                    <td class="col-md-2">@p.nombre</td>
+                    <td class="col-md-1">@p.descripcion</td>
+                    <td class="col-md-1">@p.precio</td>
+                    <td class="col-md-1">@p.ubicacion</td>
+
+                    <td>
+
+                        <form action="@Url.Action("EditarProductos")" method="post">
+                            <input type="hidden" name="id"  value="@p.id" class="form-control" />
+                            <button class="btn btn-warning" type="submit" value="Editar">Editar</button>
+                        </form>
+                    </td>
+
+                    <td>
+                        <form action="@Url.Action("EliminarProducto")" method="post">
+                            <input type="hidden" name="id" value="@p.id" class="form-control" />
+                            <button class="btn btn-danger" onclick ="return comprueba()"  value="Eliminar">Eliminar</button>
+
+                        </form>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    $('#ddlTerminal').change(function () {
+        var text = $(this).find('option:selected').text();
+        alert(text);
+    });
+</script>

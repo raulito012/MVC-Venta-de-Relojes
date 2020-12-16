@@ -1,0 +1,81 @@
+﻿@model Catalog.Models.ProductosModel
+@{
+    ViewBag.Title = "ConsultarFotos";
+    var ListaProductos = ViewBag.ListaProductos;
+}
+
+<h2>Consultar Fotos</h2>
+
+
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Agregar al Carrito?");
+    }
+</script>
+
+<div class="container ">
+
+    <div class="row">
+
+        
+        @foreach (var p in ListaProductos)
+            {
+           
+            <div class="col-lg-3">
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">@p.color</div>
+                    
+
+                        <img class="img-thumbnail" src="@p.imagen" width="255" height="255" />
+
+                    <form action="@Url.Action("AgregarCarrito")" method="post">
+                        <input type="hidden" name="idimagen" id="idimagen" value="@p.idfotos" class="form-control" />
+                        <input type="hidden" name="idproducto" id="idproducto" value="@p.idproducto" class="form-control" />
+                        <input type="hidden" name="cantidad" placeholder="Cantidad" id="Cantidad" value="1" class="form-control" required />
+                        <button class="btn btn-success" name="Agregar" value="Agregar" type="submit" onclick="return comprueba()">Agregar  A Carrito</button>
+                    </form>
+
+                    </div>
+
+                </div>
+
+
+            }
+
+    </div>
+
+</div>
+
+<div class="toast">
+    <div class="toast-header">
+        <div class="rounded mr-2" style="height: 16px;width: 16px;background-color: green;"></div>
+        <strong class="mr-auto">Nota</strong>
+        <small>Breve Descripcion</small>
+    </div>
+    <div class="toast-body">
+@foreach (var p in ListaProductos)
+{
+    @p.nota
+    break;
+}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

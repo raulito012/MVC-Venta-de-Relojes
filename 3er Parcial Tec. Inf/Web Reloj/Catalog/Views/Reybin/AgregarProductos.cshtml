@@ -1,0 +1,73 @@
+﻿@model Catalog.Models.ProductosModel
+@{
+    ViewBag.Title = "AgregarProductos";
+    var ListaProductos = ViewBag.EditarProductos;
+
+}
+
+<br />
+<br />
+<h2>AgregarProductos</h2>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+  <script> 
+      window.location.replace('http://localhost:9515/Account/Login');
+</script>  
+}
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Guardar?");
+    }   
+</script>
+
+
+
+
+
+<hr />
+<form action="@Url.Action("AgregarProductos2")" method="post">
+  
+
+                <input type="text" name="nombre" placeholder="Nombre del producto" class="form-control"  required />
+                <br />
+                <input type="text" name="descripcion" placeholder="Sexo" class="form-control"  required />
+                <br />               
+                <input type="number" name="precio" placeholder="Precio del producto" class="form-control"  required />
+                <br />
+                <input type="text" name="ubicacion" placeholder="Ubicacion del producto" class="form-control" />
+                <br />
+               
+
+                @if (ViewBag.ListaCategoria != null)
+                {
+                    @Html.DropDownListFor(model => model.idcategoria, ViewBag.ListaCategoria as SelectList, "Sin Color", new { @class = "form-control" })
+
+                }
+                
+               <br />
+              <input type="text" name="imagen" placeholder="URL de la imagen" class="form-control" required />
+              <br />
+
+                <input type="text" name="nota" placeholder="Nota" class="form-control" />
+                <br />
+     
+            
+    <br />
+
+    <input class="btn btn-success" type="submit" value="Guardar" onclick="return comprueba()" />
+</form>
+
+
+
+    <br />
+    <br />
+       <a  href="@Url.Action("FiltraProductos")">Consultar</a>
+    <br />
+    <br />
+    <a href="@Url.Action("AgregarProductos")">Cancelar</a>
+    <br />
+
+
+    
+
+ 

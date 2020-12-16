@@ -1,0 +1,52 @@
+﻿
+
+@model IEnumerable<Catalog.Models.busca_articulos>
+
+@{
+    ViewBag.Title = "imprimir_articulos";
+}
+
+<h2>Reporte De Articulos</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precio)
+        </td>
+       
+    </tr>
+}
+
+</table>
+
+
+
+<!--
+<div style="padding:10px; border:1px solid black">
+    <div><a href="@Url.Action("Repo",new {id= "PDF"})"> Get Report PDF</a></div>
+    <div><a href="@Url.Action("Report",new {id= "Excel"})"> Get Report Excel</a></div>
+    <div><a href="@Url.Action("Report",new {id= "Word"})"> Get Report Word</a></div>
+    <div><a href="@Url.Action("Report",new {id= "Image"})"> Get Report Image</a></div>
+</div>
+    -->

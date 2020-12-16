@@ -1,0 +1,90 @@
+﻿@model Catalog.Models.ModelCarrito
+@{
+    ViewBag.Title = "Carrito";
+    var ListaProductos = ViewBag.ListaCarrito;
+}
+
+<h2>Carrito</h2>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Quitar del Carrito?");
+    }
+
+    function compruebacomprar() {
+        return confirm("Desea Enviar la Compra?");
+    }
+</script>
+
+
+<form action="@Url.Action("AgregarCompra")" method="post">
+    @foreach (var p in ListaProductos)
+    {
+        <input type="hidden" name="total" id="total" value="@p.total" class="form-control" />
+        break;
+    }
+    <input class="btn btn-success" type="submit" value="Comprar" onclick="return compruebacomprar()" />
+    <br />
+</form>
+
+
+<hr />
+
+<table class="table table-light table-bordered">
+    <tbody>
+        <tr>
+            <th width="8%" class="text-left">ID</th>
+            <th width="8%" class="text-left">Ref.</th>
+            <th width="30%" class="text-left">Descripcion</th>
+            <th width="8%" class="text-left">color</th>
+            <th width="8%" class="text-left">Sexo</th>
+            <th width="7%" class="text-left">Cantidad</th>
+            <th width="10%" class="text-left">Precio</th>
+            <th width="13%" class="text-left">Importe</th>
+            <th width="5%"></th> 
+        </tr>
+      
+
+@foreach (var p in ListaProductos)
+{
+        <tr>
+            <td width="8%" class="text-left" >@p.idproducto</td>
+            <td width="8%" class="text-left">@p.idimagen</td>
+            <td width="30%" class="text-left">@p.nombre</td>
+            <td width="8%" class="text-left">@p.color</td>
+            <td width="8%" class="text-left">@p.descripcion</td>
+            <td width="7%" class="text-left">@p.cantidad</td>
+            <td width="10%" class="text-left">@p.precio</td>
+            <td width="13%" class="text-left">@p.importe</td>
+            <td width="5%">
+                <form action="@Url.Action("EliminarCarrito")" method="post">
+                    <input type="hidden" name="idproducto" id="idproducto" value="@p.idproducto" class="form-control" />
+                    <button class="btn btn-warning" type="submit" value="Eliminar" onclick="return comprueba()">Eliminar</button>
+
+                </form>
+            </td>
+         </tr>
+    
+}
+        <tr>
+            <td colspan="4" align="center"><h3>Total</h3></td>
+            
+     
+@foreach (var p in ListaProductos)
+{
+            <td colspan="4" align="right"><h3>$ @p.total</h3></td>
+    break;
+}
+        </tr>
+
+        
+
+    </tbody>
+</table> 
+
+

@@ -1,0 +1,78 @@
+﻿@model Catalog.Models.ModelCompra
+@{
+    ViewBag.Title = "Consultarventas";
+    var ListaProductos = ViewBag.ListaProductos;
+}
+
+<h2>Consultar Ventas</h2>
+<br />
+
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+<script>
+    window.location.replace('http://localhost:9515/Account/Login');
+</script>
+}
+
+    <form action="@Url.Action("Consultarventas")" method="post">
+
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">Desde</span>
+            <input type="date" class="form-control" name="desde" id="desde" placeholder="">
+        </div>
+        <br />
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">Hasta </span>
+            <input type="date" class="form-control" name="hasta" id="hasta" placeholder="">
+        </div>
+        <br />
+        <button class="btn btn-info" type="submit" value="">Buscar</button>
+
+
+    </form>
+
+    <hr />
+    <table class="table table-light table-bordered">
+        <tbody>
+            <tr>
+                <th width="8%" class="text-left">ID</th>
+                <th width="8%" class="text-left">Cuenta.</th>
+                <th width="8%" class="text-left">Fecha Solicitud</th>
+                <th width="8%" class="text-left">Fecha Despacho</th>
+                <th width="8%" class="text-left">Estado</th>
+                <th width="8%" class="text-left">Monto</th>
+
+
+            </tr>
+
+
+            @foreach (var p in ListaProductos)
+            {
+                <tr>
+                    <td width="8%" class="text-left">@p.id</td>
+                    <td width="8%" class="text-left">@p.cuenta</td>
+                    <td width="8%" class="text-left">@p.fecha_solicitado</td>
+                    <td width="8%" class="text-left">@p.fecha_despacho</td>
+                    <td width="8%" class="text-left">@p.estado</td>
+                    <td width="8%" class="text-left">@p.monto</td>
+
+                </tr>
+
+            }
+            <tr>
+                <td colspan="4" align="center"><h3>Total</h3></td>
+
+
+                @foreach (var p in ListaProductos)
+                {
+                    <td colspan="4" align="right"><h3>$ @p.total</h3></td>
+                    break;
+                }
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="catalogoModelStoreContainer" CdmEntityContainer="catalogoEntities">
+    <EntitySetMapping Name="Categoria">
+      <EntityTypeMapping TypeName="catalogoModel.Categoria">
+        <MappingFragment StoreEntitySet="Categoria">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buscar_Categoria">
+      <EntityTypeMapping TypeName="catalogoModel.Buscar_Categoria">
+        <MappingFragment StoreEntitySet="Buscar_Categoria">
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AgregarCarrito" FunctionName="catalogoModel.Store.AgregarCarrito" />
+    <FunctionImportMapping FunctionImportName="AgregarCarrito2" FunctionName="catalogoModel.Store.AgregarCarrito2" />
+    <FunctionImportMapping FunctionImportName="AgregarProductos" FunctionName="catalogoModel.Store.AgregarProductos" />
+    <FunctionImportMapping FunctionImportName="AgregarUsuarios" FunctionName="catalogoModel.Store.AgregarUsuarios" />
+    <FunctionImportMapping FunctionImportName="buscaventas" FunctionName="catalogoModel.Store.buscaventas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="catalogoModel.buscaventas_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+          <ScalarProperty Name="monto" ColumnName="monto" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="hora" ColumnName="hora" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="fecha_despacho" ColumnName="fecha_despacho" />
+          <ScalarProperty Name="Column1" ColumnName="Column1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ConsultarProductos" FunctionName="catalogoModel.Store.ConsultarProductos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="catalogoModel.ConsultarProductos_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="imagen" ColumnName="imagen" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+          <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="inserta_compra" FunctionName="catalogoModel.Store.inserta_compra" />
+    <FunctionImportMapping FunctionImportName="inserta_detalle_compra" FunctionName="catalogoModel.Store.inserta_detalle_compra" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="catalogoModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="catalogoModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="catalogoModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="catalogoModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="catalogoModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="catalogoModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="catalogoModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="catalogoModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="catalogoModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="busca_usuario">
+      <EntityTypeMapping TypeName="catalogoModel.busca_usuario">
+        <MappingFragment StoreEntitySet="busca_usuario">
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="busca_articulos">
+      <EntityTypeMapping TypeName="catalogoModel.busca_articulos">
+        <MappingFragment StoreEntitySet="busca_articulos">
+          <ScalarProperty Name="precio" ColumnName="precio" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

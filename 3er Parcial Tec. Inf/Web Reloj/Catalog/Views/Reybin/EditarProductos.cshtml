@@ -1,0 +1,108 @@
+﻿@model Catalog.Models.ProductosModel
+@{
+    ViewBag.Title = "EditarProductos";
+    var ListaProductos = ViewBag.EditarProductos;
+}
+
+<h2>EditarProductos</h2>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Guardar?");
+    }
+</script>
+
+<script type="text/javascript">
+    function comprueba2() {
+        return confirm("Desea Eliminar?");
+    }
+</script>
+
+
+<hr />
+<form action="@Url.Action("AgregarProductos2")" method="post">
+    @if (ListaProductos != null)
+    {
+        foreach (var p in ListaProductos)
+        {
+
+            <input type="text" readonly name="codigo" placeholder="ID" class="form-control" value="@p.id" required />
+            <br />
+            <input type="text" name="nombre" placeholder="Nombre del producto" class="form-control" value="@p.nombre" required />
+            <br />
+            <input type="text" name="descripcion" placeholder="Sexo" class="form-control" value="@p.descripcion" required />
+            <br />           
+            <input type="number" name="precio" placeholder="Precio del producto" class="form-control" value="@p.precio" required />
+            <br />
+            <input type="text" name="ubicacion" placeholder="Ubicacion del producto" class="form-control" value="@p.ubicacion" />
+            <br />
+            
+
+            if (ViewBag.ListaCategoria != null)
+            {
+                @Html.DropDownListFor(model => model.idcategoria, ViewBag.ListaCategoria as SelectList, "Sin Color", new { @class = "form-control" })
+
+            }
+         
+            <br />
+          <input type="text" name="imagen" placeholder="URL de la imagen" class="form-control" value="@p.imagen" />
+            <br />
+
+    <input type="text" name="nota" placeholder="Nota" id ="nota"class="form-control" value="@p.nota" />
+                <br />
+            break;
+
+
+        }
+    }
+    <br />
+    <input class="btn btn-success" type="submit" value="Actualizar" onclick="return comprueba() " />
+</form>
+<br />
+<a class="btn btn-default" href="@Url.Action("FiltraProductos")">Consultar</a>
+<br />
+<br />
+<a class="btn btn-warning" href="@Url.Action("AgregarProductos")">Cancelar</a>
+<br />
+
+<br />
+
+
+
+<div class="container ">
+    <div class="row">
+
+        @foreach (var p in ListaProductos)
+        {
+             <div class="col-lg-2" >
+            <div class="panel panel-info">
+                <div class="panel-footer">
+
+                    <img class="img-thumbnail" src="@p.fotos" width="170" height="170" />
+
+
+
+                    <form action="@Url.Action("Eliminarimagen")" method="post">
+                        <input type="hidden" name="id_fotos" id="id_fotos" value="@p.id_fotos" class="form-control" />
+                        <button class="btn btn-link" type="submit" value="Eliminar" onclick="return comprueba2()">Eliminar</button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+    </div>
+</div>
+
+
+
+      

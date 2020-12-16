@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "ListaProductos";
+    var ListaProductos = ViewBag.ListaProductos;
+}
+
+<h2>Listado De Productos</h2>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Agregar al Carrito?");
+    }
+</script>
+<br />
+   
+
+    <hr />
+
+
+    <div class="container ">
+
+        <div class="row">
+           
+
+            @foreach (var p in ListaProductos)
+            {
+                <div class="col-lg-3" >
+
+                    <div class="panel panel-info"  >
+                        <div class="panel-heading" >@p.nombre</div>
+                        <div class="panel-footer"  >
+
+                            <img class="img-thumbnail" src="@p.imagen" width="220" height="220" />
+
+                            <p>@p.descripcion</p>
+                            <p>$ @p.precio</p>
+
+
+                            <form action="@Url.Action("AgregarCarrito")" method="post">
+
+                              
+                                <input type="hidden" name="cantidad" placeholder="Cantidad" id="Cantidad" value="1" class="form-control" required />
+                                <input type="hidden" name="idproducto" id="idproducto" value="@p.id" class="form-control" />
+                               
+                            </form>
+
+                            <form action="@Url.Action("ConsultarFotos")" method="post">
+
+                            <input type="hidden" name="idfotos" id="idfotos" value="@p.id" class="form-control" />
+                            <button class="btn btn-info" name="fotos" value="fotos" type="submit" onclick="">------     Ver     ------</button>
+                           
+                             </form>
+</div>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+

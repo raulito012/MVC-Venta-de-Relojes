@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="catalogoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Reloj.dbo.busca_articulos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="busca_articulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="precio" Type="numeric" Precision="10" Scale="2" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Reloj.dbo.busca_usuario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="busca_usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="Telefono" Type="varchar(max)" />
+          <Property Name="WhatsApp" Type="varchar(max)" />
+          <Property Name="Direccion" Type="varchar(max)" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Reloj.dbo.Buscar_Categoria' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Buscar_Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+        </EntityType>
+        <Function Name="AgregarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="idproducto" Type="int" Mode="In" />
+          <Parameter Name="cantidad" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="AgregarCarrito2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="idproducto" Type="int" Mode="In" />
+          <Parameter Name="idimagen" Type="int" Mode="In" />
+          <Parameter Name="cantidad" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="AgregarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="codigo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="nombre" Type="varchar(max)" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="imagen" Type="varchar(max)" Mode="In" />
+          <Parameter Name="precio" Type="numeric" Mode="In" />
+          <Parameter Name="idcategoria" Type="int" Mode="In" />
+          <Parameter Name="ubicacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="nota" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AgregarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+          <Parameter Name="UserName" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Password" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar(max)" Mode="In" />
+          <Parameter Name="WhatsApp" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Direccion" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="buscaventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="desde" Type="date" Mode="In" />
+          <Parameter Name="hasta" Type="date" Mode="In" />
+        </Function>
+        <Function Name="ConsultarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="inserta_compra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="monto" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserta_detalle_compra" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cuenta" Type="varchar(max)" Mode="In" />
+          <Parameter Name="id_producto" Type="int" Mode="In" />
+          <Parameter Name="cantidad" Type="numeric" Mode="In" />
+          <Parameter Name="precio" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="catalogoModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="busca_articulos" EntityType="Self.busca_articulos" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [busca_articulos].[Id] AS [Id], 
+    [busca_articulos].[Nombre] AS [Nombre], 
+    [busca_articulos].[Descripcion] AS [Descripcion], 
+    [busca_articulos].[precio] AS [precio]
+    FROM [dbo].[busca_articulos] AS [busca_articulos]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="busca_usuario" EntityType="Self.busca_usuario" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [busca_usuario].[Id] AS [Id], 
+    [busca_usuario].[Nombre] AS [Nombre], 
+    [busca_usuario].[Telefono] AS [Telefono], 
+    [busca_usuario].[WhatsApp] AS [WhatsApp], 
+    [busca_usuario].[Direccion] AS [Direccion]
+    FROM [dbo].[busca_usuario] AS [busca_usuario]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Buscar_Categoria" EntityType="Self.Buscar_Categoria" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Buscar_Categoria].[idCategoria] AS [idCategoria], 
+    [Buscar_Categoria].[descripcion] AS [descripcion]
+    FROM [dbo].[Buscar_Categoria] AS [Buscar_Categoria]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="catalogoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="catalogoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoria" EntityType="catalogoModel.Categoria" />
+          <EntitySet Name="Buscar_Categoria" EntityType="catalogoModel.Buscar_Categoria" />
+          <FunctionImport Name="AgregarCarrito">
+            <Parameter Name="cuenta" Mode="In" Type="String" />
+            <Parameter Name="idproducto" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AgregarCarrito2">
+            <Parameter Name="cuenta" Mode="In" Type="String" />
+            <Parameter Name="idproducto" Mode="In" Type="Int32" />
+            <Parameter Name="idimagen" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AgregarProductos">
+            <Parameter Name="codigo" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="imagen" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+            <Parameter Name="idcategoria" Mode="In" Type="Int32" />
+            <Parameter Name="ubicacion" Mode="In" Type="String" />
+            <Parameter Name="nota" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AgregarUsuarios">
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="WhatsApp" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Direccion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="buscaventas" ReturnType="Collection(catalogoModel.buscaventas_Result)">
+            <Parameter Name="desde" Mode="In" Type="DateTime" />
+            <Parameter Name="hasta" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultarProductos" ReturnType="Collection(catalogoModel.ConsultarProductos_Result)" />
+          <FunctionImport Name="inserta_compra">
+            <Parameter Name="cuenta" Mode="In" Type="String" />
+            <Parameter Name="monto" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserta_detalle_compra">
+            <Parameter Name="cuenta" Mode="In" Type="String" />
+            <Parameter Name="id_producto" Mode="In" Type="Int32" />
+            <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(catalogoModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(catalogoModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="buscausuarios" ReturnType="Collection(catalogoModel.buscausuarios_Result)" />
+          <EntitySet Name="busca_usuario" EntityType="catalogoModel.busca_usuario" />
+          <EntitySet Name="busca_articulos" EntityType="catalogoModel.busca_articulos" />
+        </EntityContainer>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Buscar_Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="buscaventas_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="cuenta" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="monto" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" />
+          <Property Type="String" Name="hora" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="estado" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_despacho" Nullable="true" />
+          <Property Type="Decimal" Name="Column1" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ConsultarProductos_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="String" Name="imagen" Nullable="true" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="idCategoria" Nullable="true" />
+          <Property Type="String" Name="ubicacion" Nullable="true" />
+          <Property Type="String" Name="nota" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="buscausuarios_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" />
+          <Property Type="String" Name="Telefono" Nullable="true" />
+          <Property Type="String" Name="WhatsApp" Nullable="true" />
+          <Property Type="String" Name="Direccion" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="busca_usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="WhatsApp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="busca_articulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="catalogoModelStoreContainer" CdmEntityContainer="catalogoEntities">
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="catalogoModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buscar_Categoria">
+            <EntityTypeMapping TypeName="catalogoModel.Buscar_Categoria">
+              <MappingFragment StoreEntitySet="Buscar_Categoria">
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AgregarCarrito" FunctionName="catalogoModel.Store.AgregarCarrito" />
+          <FunctionImportMapping FunctionImportName="AgregarCarrito2" FunctionName="catalogoModel.Store.AgregarCarrito2" />
+          <FunctionImportMapping FunctionImportName="AgregarProductos" FunctionName="catalogoModel.Store.AgregarProductos" />
+          <FunctionImportMapping FunctionImportName="AgregarUsuarios" FunctionName="catalogoModel.Store.AgregarUsuarios" />
+          <FunctionImportMapping FunctionImportName="buscaventas" FunctionName="catalogoModel.Store.buscaventas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="catalogoModel.buscaventas_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha_despacho" ColumnName="fecha_despacho" />
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarProductos" FunctionName="catalogoModel.Store.ConsultarProductos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="catalogoModel.ConsultarProductos_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="inserta_compra" FunctionName="catalogoModel.Store.inserta_compra" />
+          <FunctionImportMapping FunctionImportName="inserta_detalle_compra" FunctionName="catalogoModel.Store.inserta_detalle_compra" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="catalogoModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="catalogoModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="catalogoModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="catalogoModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="catalogoModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="catalogoModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="catalogoModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="catalogoModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="catalogoModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="busca_usuario">
+            <EntityTypeMapping TypeName="catalogoModel.busca_usuario">
+              <MappingFragment StoreEntitySet="busca_usuario">
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="WhatsApp" ColumnName="WhatsApp" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="busca_articulos">
+            <EntityTypeMapping TypeName="catalogoModel.busca_articulos">
+              <MappingFragment StoreEntitySet="busca_articulos">
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="SynchronizePropertyFacets" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="catalogoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="catalogoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="catalogoModel.Categoria" />
+    <EntitySet Name="Buscar_Categoria" EntityType="catalogoModel.Buscar_Categoria" />
+    <FunctionImport Name="AgregarCarrito">
+      <Parameter Name="cuenta" Mode="In" Type="String" />
+      <Parameter Name="idproducto" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="AgregarCarrito2">
+      <Parameter Name="cuenta" Mode="In" Type="String" />
+      <Parameter Name="idproducto" Mode="In" Type="Int32" />
+      <Parameter Name="idimagen" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="AgregarProductos">
+      <Parameter Name="codigo" Mode="In" Type="String" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="imagen" Mode="In" Type="String" />
+      <Parameter Name="precio" Mode="In" Type="Decimal" />
+      <Parameter Name="idcategoria" Mode="In" Type="Int32" />
+      <Parameter Name="ubicacion" Mode="In" Type="String" />
+      <Parameter Name="nota" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AgregarUsuarios">
+      <Parameter Name="Tipo" Mode="In" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="WhatsApp" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Direccion" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="buscaventas" ReturnType="Collection(catalogoModel.buscaventas_Result)">
+      <Parameter Name="desde" Mode="In" Type="DateTime" />
+      <Parameter Name="hasta" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="ConsultarProductos" ReturnType="Collection(catalogoModel.ConsultarProductos_Result)" />
+    <FunctionImport Name="inserta_compra">
+      <Parameter Name="cuenta" Mode="In" Type="String" />
+      <Parameter Name="monto" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="inserta_detalle_compra">
+      <Parameter Name="cuenta" Mode="In" Type="String" />
+      <Parameter Name="id_producto" Mode="In" Type="Int32" />
+      <Parameter Name="cantidad" Mode="In" Type="Decimal" />
+      <Parameter Name="precio" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(catalogoModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(catalogoModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="buscausuarios" ReturnType="Collection(catalogoModel.buscausuarios_Result)" />
+    <EntitySet Name="busca_usuario" EntityType="catalogoModel.busca_usuario" />
+    <EntitySet Name="busca_articulos" EntityType="catalogoModel.busca_articulos" />
+  </EntityContainer>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Buscar_Categoria">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="buscaventas_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="cuenta" Nullable="false" MaxLength="30" />
+    <Property Type="Decimal" Name="monto" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="DateTime" Name="fecha" Nullable="true" />
+    <Property Type="String" Name="hora" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="estado" Nullable="true" />
+    <Property Type="DateTime" Name="fecha_despacho" Nullable="true" />
+    <Property Type="Decimal" Name="Column1" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="ConsultarProductos_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="nombre" Nullable="true" />
+    <Property Type="String" Name="descripcion" Nullable="true" />
+    <Property Type="String" Name="imagen" Nullable="true" />
+    <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+    <Property Type="Int32" Name="idCategoria" Nullable="true" />
+    <Property Type="String" Name="ubicacion" Nullable="true" />
+    <Property Type="String" Name="nota" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="buscausuarios_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" />
+    <Property Type="String" Name="Telefono" Nullable="true" />
+    <Property Type="String" Name="WhatsApp" Nullable="true" />
+    <Property Type="String" Name="Direccion" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="busca_usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WhatsApp" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="busca_articulos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+</Schema>

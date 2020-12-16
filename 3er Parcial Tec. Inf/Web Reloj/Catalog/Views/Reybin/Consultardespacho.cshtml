@@ -1,0 +1,65 @@
+﻿@model Catalog.Models.ModelCompra
+@{
+    ViewBag.Title = "Consultardespacho";
+    var ListaProductos = ViewBag.ListaEstado;
+}
+
+<h2>Despacho De Compras</h2>
+<script type="text/javascript">
+    function comprueba() {
+        return confirm("Desea Hacer el despacho?");
+    }
+</script>
+@if (Convert.ToString(HttpContext.Current.User.Identity.Name) == "")
+{
+    <script>
+        window.location.replace('http://localhost:9515/Account/Login');
+    </script>
+}
+<table class="table table-light table-bordered">
+    <tbody>
+        <tr>
+            <th width="8%" class="text-left">ID</th>
+            <th width="8%" class="text-left">Turno</th>
+            <th width="30%" class="text-left">Cliente</th>
+            <th width="8%" class="text-left">Fecha</th>
+            <th width="7%" class="text-left">Hora</th>
+            <th width="10%" class="text-left">Estado</th>
+            <th width="5%"></th> 
+        </tr>
+
+
+        @foreach (var p in ListaProductos)
+        {
+           // if (@p.cuenta == Convert.ToString(HttpContext.Current.User.Identity.Name))
+            {
+                <tr>
+                    <td width="8" class="text-left">@p.id</td>
+                    <td width="8" class="text-left">@p.posicion</td>
+                    <td width="30%" class="text-left">@p.cliente</td>
+                    <td width="8%" class="text-left">@p.fecha_solicitado</td>
+                    <td width="7%" class="text-left">@p.hora</td>
+                    <td width="10%" class="text-left">@p.estado</td>
+                    <td width="5%">
+                        <form action="@Url.Action("Agregardespacho")" method="post">
+                            <input type="hidden" name="id" id="id" value="@p.id" class="form-control" />
+                            <button class="btn btn-warning" type="submit" value="Eliminar" onclick="return comprueba()">Despachar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+
+
+
+
+    </tbody>
+</table>
+@foreach (var p in ListaProductos)
+{
+    if (@p.estado == "Pendiente")
+    {
+        <h2>#Turno En Despacho:  @p.posicion </h2>
+        break;
+    }
+}
